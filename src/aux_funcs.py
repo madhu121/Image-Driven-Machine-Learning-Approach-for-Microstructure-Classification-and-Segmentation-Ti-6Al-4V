@@ -3,7 +3,8 @@
 Author: Arun Baskaran
 --------------------------------------------------------------------------
 """
-import model_params
+from lib_imports import *
+from model_params import *
 
 
 def smooth(img):
@@ -37,7 +38,7 @@ def load_images_labels():
     df = pd.read_excel('labels.xlsx', header=None, names=['id', 'label'])
     total_labels = df['label']
     for i in range(len(total_labels)):
-	total_labels[i]-=1
+	    total_labels[i]-=1
     train_list = random.sample(range(1,total_size+1), train_size)
     nontrainlist = []
     test_list = []
@@ -62,7 +63,7 @@ def load_images_labels():
 
     for i in range(1, total_size+1):
         if i in train_list:
-            filename = 'image_' + str(i) + '.png'
+            filename = 'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(i) + '.png'
             image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             image = cv2.resize(image, dsize=(width, height), interpolation=cv2.INTER_CUBIC)
             image = cv2.blur(image,(5,5))
@@ -70,7 +71,7 @@ def load_images_labels():
             train_images.append(image)
             train_labels.append(total_labels[i-1])
         elif i in validation_list:
-            filename = 'image_' + str(i) + '.png'
+            filename = 'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(i) + '.png'
             image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             image = cv2.resize(image, dsize=(width, height), interpolation=cv2.INTER_CUBIC)
             image = cv2.blur(image,(5,5))
@@ -78,7 +79,7 @@ def load_images_labels():
             validation_images.append(image)
             validation_labels.append(total_labels[i-1])
         else:
-            filename = 'image_' + str(i) + '.png'
+            filename = 'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(i) + '.png'
             image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             image = cv2.resize(image, dsize=(width, height), interpolation=cv2.INTER_CUBIC)
             image = cv2.blur(image,(5,5))
