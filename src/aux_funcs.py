@@ -35,7 +35,7 @@ def create_model():
   ])
 
 def load_images_labels():
-    df = pd.read_excel('labels.xlsx', header=None, names=['id', 'label'])
+    df = pd.read_excel('C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\labels.xlsx\labels.xlsx', header=None, names=['id', 'label'])
     total_labels = df['label']
     for i in range(len(total_labels)):
 	    total_labels[i]-=1
@@ -101,7 +101,7 @@ def load_images_labels():
 
 def train_model():
     model = create_model()
-    checkpoint_path = "weights/classification.ckpt"     #Check this path
+    checkpoint_path =  "C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\weights\classification.ckpt.data-00000-of-00001"                      #"weights/classification.ckpt"     #Check this path
     checkpoint_dir = os.path.dirname(checkpoint_path)
     es = tf.keras.callbacks.EarlyStopping(monitor='val_loss', verbose=1, patience = 50, mode='min', restore_best_weights=True)
     cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, save_weights_only=True, verbose=0)
@@ -122,7 +122,7 @@ def get_predicted_classes(model):
     y_classes = y_prob.argmax(axis=-1)
     return y_classes
 
-df = pd.read_excel('labels.xlsx', header=None, names=['id', 'label'])
+df = pd.read_excel('C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\labels.xlsx', header=None, names=['id', 'label'])
 total_labels = df['label']
 for i in range(len(total_labels)):
 	total_labels[i]-=1
@@ -130,7 +130,7 @@ for i in range(len(total_labels)):
 def duplex_segmentation(i):
     area_frac_duplex=[]
     duplex_image_id=[]
-    filename = 'image_' + str(test_images_id[i]) + '.png'
+    filename = 'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(test_images_id[i]) + '.png'
     image = Image.open(filename).convert('F')
     image = np.copy(np.reshape(np.array(image), image.size[::-1])/255.)   
     image = exposure.equalize_adapthist(image, clip_limit=8.3)
@@ -157,7 +157,7 @@ def duplex_segmentation(i):
     
 def lamellar_segmentation(i):
     dim = 400
-    filename = 'image_' + str(test_images_id[i]) + '.png'
+    filename = 'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(test_images_id[i]) + '.png'
     image = Image.open(filename).convert('F')
     image = np.copy(np.reshape(np.array(image), image.size[::-1])/255.)
     image = exposure.equalize_hist(image)
@@ -195,6 +195,7 @@ def lamellar_segmentation(i):
 def feature_segmentation():
     equiaxed_area_fraction_dict = {}
     lamellae_area_fraction_dict= {}
+    print("Yaay")
 
     for i in range(np.size(y_classes)):
         if(y_classes[i]==0):
