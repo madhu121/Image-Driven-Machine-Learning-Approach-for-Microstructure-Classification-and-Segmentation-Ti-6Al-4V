@@ -20,6 +20,7 @@ if __name__ == "__main__":
         model = train_model()
     
     elif mode =="load":
+        print("You entered load")
         model = load_model()
         
     test_accuracy(model)
