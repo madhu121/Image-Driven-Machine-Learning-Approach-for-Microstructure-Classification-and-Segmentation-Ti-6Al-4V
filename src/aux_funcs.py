@@ -195,7 +195,7 @@ def lamellar_segmentation(i):
 def feature_segmentation():
     equiaxed_area_fraction_dict = {}
     lamellae_area_fraction_dict= {}
-    print("Yay!")
+    print("Works")
 
     for i in range(np.size(y_classes)):
         if(y_classes[i]==0):
