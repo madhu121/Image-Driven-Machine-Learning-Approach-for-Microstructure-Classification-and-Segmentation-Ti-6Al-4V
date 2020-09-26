@@ -7,7 +7,7 @@ Author: Arun Baskaran
 import lib_imports
 from aux_funcs import *
 import model_params
-
+import sys
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

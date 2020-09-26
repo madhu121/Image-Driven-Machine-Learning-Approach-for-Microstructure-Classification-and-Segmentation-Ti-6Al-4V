@@ -35,7 +35,7 @@ def create_model():
   ])
 
 def load_images_labels():
-    df = pd.read_excel(r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\labels.xlsx\labels.xlsx', header=None, names=['id', 'label'])
+    df = pd.read_excel(r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/labels.xlsx', header=None, names=['id', 'label'])
     total_labels = df['label']
     for i in range(len(total_labels)):
 	    total_labels[i]-=1
@@ -63,7 +63,7 @@ def load_images_labels():
 
     for i in range(1, total_size+1):
         if i in train_list:
-            filename = r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(i) + '.png'
+            filename = r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/Images1/image_' + str(i) + '.png'
             image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             image = cv2.resize(image, dsize=(width, height), interpolation=cv2.INTER_CUBIC)
             image = cv2.blur(image,(5,5))
@@ -71,7 +71,7 @@ def load_images_labels():
             train_images.append(image)
             train_labels.append(total_labels[i-1])
         elif i in validation_list:
-            filename = r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(i) + '.png'
+            filename = r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/Images1/image_' + str(i) + '.png'
             image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             image = cv2.resize(image, dsize=(width, height), interpolation=cv2.INTER_CUBIC)
             image = cv2.blur(image,(5,5))
@@ -79,7 +79,7 @@ def load_images_labels():
             validation_images.append(image)
             validation_labels.append(total_labels[i-1])
         else:
-            filename = r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(i) + '.png'
+            filename = r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/Images1/image_' + str(i) + '.png'
             image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             image = cv2.resize(image, dsize=(width, height), interpolation=cv2.INTER_CUBIC)
             image = cv2.blur(image,(5,5))
@@ -101,7 +101,8 @@ def load_images_labels():
 
 def train_model():
     model = create_model()
-    checkpoint_path =  r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\weights\classification.ckpt.data-00000-of-00001'                      #"weights/classification.ckpt"     #Check this path
+    #checkpoint_path =  r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/weights/classification.ckpt.data-00000-of-00001'                      #"weights/classification.ckpt"     #Check this path
+    checkpoint_path = r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/weights/classification.cpkt'
     checkpoint_dir = os.path.dirname(checkpoint_path)
     es = tf.keras.callbacks.EarlyStopping(monitor='val_loss', verbose=1, patience = 50, mode='min', restore_best_weights=True)
     cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, save_weights_only=True, verbose=0)
@@ -122,7 +123,7 @@ def get_predicted_classes(model):
     y_classes = y_prob.argmax(axis=-1)
     return y_classes
 
-df = pd.read_excel(r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\labels.xlsx', header=None, names=['id', 'label'])
+df = pd.read_excel(r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/labels.xlsx', header=None, names=['id', 'label'])
 total_labels = df['label']
 for i in range(len(total_labels)):
 	total_labels[i]-=1
@@ -130,7 +131,7 @@ for i in range(len(total_labels)):
 def duplex_segmentation(i):
     area_frac_duplex=[]
     duplex_image_id=[]
-    filename = r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(test_images_id[i]) + '.png'
+    filename = r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/Images1/image_' + str(test_images_id[i]) + '.png'
     image = Image.open(filename).convert('F')
     image = np.copy(np.reshape(np.array(image), image.size[::-1])/255.)   
     image = exposure.equalize_adapthist(image, clip_limit=8.3)
@@ -157,7 +158,7 @@ def duplex_segmentation(i):
     
 def lamellar_segmentation(i):
     dim = 400
-    filename = r'C:\Users\Madhu\Desktop\My_git\DDP\Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V\Images1\image_' + str(test_images_id[i]) + '.png'
+    filename = r'/content/Image-Driven-Machine-Learning-Approach-for-Microstructure-Classification-and-Segmentation-Ti-6Al-4V/Images1/image_' + str(test_images_id[i]) + '.png'
     image = Image.open(filename).convert('F')
     image = np.copy(np.reshape(np.array(image), image.size[::-1])/255.)
     image = exposure.equalize_hist(image)
